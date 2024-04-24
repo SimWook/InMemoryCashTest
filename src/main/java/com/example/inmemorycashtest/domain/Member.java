@@ -1,4 +1,4 @@
-package com.example.inmemorycashtest.dto;
+package com.example.inmemorycashtest.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -24,17 +24,17 @@ public class Member {
     @Column(name = "city")
     private String city;
 
-    // 정적 메서드를 사용해서 생성
-    public static Member createMember(String name, int age, String city){
+    // 静的メソッド生成
+    public static Member createMember(String name, int age, String city) {
         Member member = new Member();
-        member.name=name;
-        member.age=age;
-        member.city=city;
+        member.name = name;
+        member.age = age;
+        member.city = city;
         return member;
     }
 
-    public void changeAge(int age){
-        this.age=age;
+    public void changeAge(int age) {
+        this.age = age;
     }
 
 }
