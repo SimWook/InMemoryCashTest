@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.redis.core.RedisHash;
 
+import java.util.Objects;
+
 @Getter
 @NoArgsConstructor
 @RedisHash(value = "redisMember")
@@ -20,5 +22,18 @@ public class RedisMember{
         this.name = name;
         this.age = age;
     }
+    public void changeAge(int age){
+        this.age=age;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        RedisMember obj1 = (RedisMember) obj;
+        return this.name.equals(obj1.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

@@ -15,8 +15,8 @@ import java.util.List;
  * ConcurrentMapCacheは、SimpleCacheManagerまたはConcurrentMapCacheManagerを通じて
  * 動作するコレクション形式のキャッシュです。
  */
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 public class CacheConfig {
 
     @Bean
