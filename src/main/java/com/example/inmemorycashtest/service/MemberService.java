@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -38,6 +39,13 @@ public class MemberService {
         return memberRepository.save(member).getId();
     }
 
+    // キャッシュ適用前
+    /*public List<Dto> findAll(){
+        log.info("findAll implement!!");
+        return memberRepository.findAll().stream().map(a -> new Dto(a.getName(),a.getAge(),a.getCity()))
+                .collect(Collectors.toList());
+    }*/
+    // Cacheable：メソッドにキャッシュを利用できるようにします。
     @Cacheable(value = "memberList")
     public List<Dto> findAll(){
         log.info("findAll implement!!");
@@ -45,17 +53,35 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
+    // キャッシュ適用前
+    /*public Dto findOne(long id){
+        log.info("findOne implement!!");
+        return memberRepository.findById(id).map(a -> new Dto(a.getName(),a.getAge(),a.getCity())).get();
+    }*/
     @Cacheable(value = "memberOne",key = "#id")
     public Dto findOne(long id){
         log.info("findOne implement!!");
         return memberRepository.findById(id).map(a -> new Dto(a.getName(),a.getAge(),a.getCity())).get();
     }
 
+    // キャッシュ適用前
+    /*public void deleteMember(long id){
+        memberRepository.deleteById(id);
+    }*/
+    // CacheEvict：設定に応じてキャッシュの値を削除します。
     @CacheEvict(value = "memberList",allEntries = true)
     public void deleteMember(long id){
         memberRepository.deleteById(id);
     }
 
+    // キャッシュ適用前
+    /*public Dto changeAge(long id, int age){
+        log.info("changeAge implement!!");
+        Member member = memberRepository.findById(id).get();
+        member.changeAge(age);
+        return new Dto(member.getName(),member.getAge(),member.getCity());
+    }*/
+    // CachePut：キャッシュを更新する役割を果たします。
     @CachePut(value = "memberOne", key = "#id")
     public Dto changeAge(long id, int age){
         log.info("changeAge implement!!");
