@@ -18,6 +18,7 @@ import java.util.List;
 @Configuration
 @EnableCaching
 public class CacheConfig {
+
     @Bean
     public CacheManager cacheManager(){
         SimpleCacheManager simpleCacheManager = new SimpleCacheManager();
